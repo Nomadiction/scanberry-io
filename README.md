@@ -2,7 +2,7 @@
 
 > AI-powered diagnostics for blueberry plants (*Vaccinium corymbosum* L.) from a single field photo.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[License: MIT](LICENSE)
 
 ScanBerry.io takes a phone photo of a blueberry bush, runs a three-stage computer-vision pipeline (detection → classification + segmentation → damage quantification) and returns a health verdict, a per-pixel damage map and concrete agronomic recommendations — in under a few seconds on CPU-only hardware.
 
@@ -33,8 +33,8 @@ You upload a photo of a blueberry bush. The pipeline:
 
 1. **Detects** the bush in the frame (YOLOv8s).
 2. **Crops** to the plant and runs two models in parallel on the crop:
-   - **Classification** (EfficientNet-B0) — health class: `healthy`, `stress`, `mold`, `dry`.
-   - **Segmentation** (U-Net + DeepLabV3+) — per-pixel masks for plant area and three lesion types.
+  - **Classification** (EfficientNet-B0) — health class: `healthy`, `stress`, `mold`, `dry`.
+  - **Segmentation** (U-Net + DeepLabV3+) — per-pixel masks for plant area and three lesion types.
 3. **Quantifies** damage: `% damaged area = lesion_pixels / plant_pixels × 100%` per lesion type.
 4. **Returns** a structured response: health class with confidence, per-class probabilities, damage breakdown, and an overlay visualisation; the frontend renders this together with localised agronomic recommendations (RU / EN / ES / DE).
 
@@ -69,12 +69,14 @@ The end user sees one of four diagnoses with a severity level and a checklist of
                   └──────────────────────────┘
 ```
 
-| Layer | Hosted on | Notes |
-|---|---|---|
-| Frontend | Azure Static Web Apps | Built by GitHub Actions on every push to `main` touching `frontend/**` |
-| Backend | Azure App Service for Linux Containers (B1) | Image lives in Azure Container Registry; weights baked into the image |
-| Database | Azure Database for PostgreSQL — Flexible Server | SQLite is used as a fallback in local dev |
-| File storage | Azure Blob Storage *or* local filesystem | Selected via `STORAGE_BACKEND` env var |
+
+| Layer        | Hosted on                                       | Notes                                                                  |
+| ------------ | ----------------------------------------------- | ---------------------------------------------------------------------- |
+| Frontend     | Azure Static Web Apps                           | Built by GitHub Actions on every push to `main` touching `frontend/**` |
+| Backend      | Azure App Service for Linux Containers (B1)     | Image lives in Azure Container Registry; weights baked into the image  |
+| Database     | Azure Database for PostgreSQL — Flexible Server | SQLite is used as a fallback in local dev                              |
+| File storage | Azure Blob Storage *or* local filesystem        | Selected via `STORAGE_BACKEND` env var                                 |
+
 
 ## Repository layout
 
@@ -115,17 +117,19 @@ ML research artefacts (training notebooks, dataset preparation scripts, thesis d
 
 ## Tech stack
 
-| Area | Choice | Reason |
-|---|---|---|
-| API framework | FastAPI 0.115 + uvicorn | async, OpenAPI out-of-the-box, type-safe |
-| ORM / migrations | SQLAlchemy 2.0 (async) + Alembic | mature, supports both Postgres and SQLite |
-| ML runtime | PyTorch 2.5 (CPU build) | App Service B1 has no GPU; CPU build keeps the image ~1.5 GB lighter |
-| Detection | YOLOv8s (ultralytics) | mAP@50 = 0.995 on the field test set |
-| Classification | EfficientNet-B0 (timm-style) | best macro F1 on a 252-image, class-imbalanced set |
-| Segmentation | U-Net (bush) + DeepLabV3+ (lesions), via SMP | two-model split materially improves IoU |
-| Frontend | React 18 + Vite 6 + Tailwind 4 | small bundle, fast HMR, plays well with Telegram Mini App |
-| State / data | TanStack Query | request caching + retry for flaky field connections |
-| i18n | Custom typed dictionary in `src/app/lib/i18n.ts` | RU / EN / ES / DE, no runtime overhead |
+
+| Area             | Choice                                           | Reason                                                               |
+| ---------------- | ------------------------------------------------ | -------------------------------------------------------------------- |
+| API framework    | FastAPI 0.115 + uvicorn                          | async, OpenAPI out-of-the-box, type-safe                             |
+| ORM / migrations | SQLAlchemy 2.0 (async) + Alembic                 | mature, supports both Postgres and SQLite                            |
+| ML runtime       | PyTorch 2.5 (CPU build)                          | App Service B1 has no GPU; CPU build keeps the image ~1.5 GB lighter |
+| Detection        | YOLOv8s (ultralytics)                            | mAP@50 = 0.995 on the field test set                                 |
+| Classification   | EfficientNet-B0 (timm-style)                     | best macro F1 on a 252-image, class-imbalanced set                   |
+| Segmentation     | U-Net (bush) + DeepLabV3+ (lesions), via SMP     | two-model split materially improves IoU                              |
+| Frontend         | React 18 + Vite 6 + Tailwind 4                   | small bundle, fast HMR, plays well with Telegram Mini App            |
+| State / data     | TanStack Query                                   | request caching + retry for flaky field connections                  |
+| i18n             | Custom typed dictionary in `src/app/lib/i18n.ts` | RU / EN / ES / DE, no runtime overhead                               |
+
 
 ## Quick start (local)
 
@@ -185,17 +189,19 @@ If `models/` is empty, the container still starts — but `/analyze` returns `50
 
 All runtime configuration is environment-driven. See `backend/.env.example` and `frontend/.env.example` for the authoritative list with comments. Highlights:
 
-| Variable | Default | Notes |
-|---|---|---|
-| `APP_ENV` | `development` | Toggles auto-create tables on startup |
-| `DATABASE_URL` | SQLite | Use `postgresql+asyncpg://...` in production |
-| `STORAGE_BACKEND` | `local` | `azure` switches uploads to Blob Storage |
-| `DEVICE` | `cpu` | Set to `cuda` if you have a GPU box |
-| `MODEL_*_PATH` | (empty) | Absolute or backend-relative paths to weights |
-| `CORS_ORIGINS` | localhost set | JSON array; add your deployed frontend URL |
-| `CORS_ORIGIN_REGEX` | (empty) | E.g. `https://.*\.azurestaticapps\.net` for SWA preview slots |
-| `VITE_API_BASE_URL` | `http://localhost:8000` | Frontend → backend base URL |
-| `VITE_USE_MOCK` | `false` | UI works without the backend |
+
+| Variable            | Default                 | Notes                                                         |
+| ------------------- | ----------------------- | ------------------------------------------------------------- |
+| `APP_ENV`           | `development`           | Toggles auto-create tables on startup                         |
+| `DATABASE_URL`      | SQLite                  | Use `postgresql+asyncpg://...` in production                  |
+| `STORAGE_BACKEND`   | `local`                 | `azure` switches uploads to Blob Storage                      |
+| `DEVICE`            | `cpu`                   | Set to `cuda` if you have a GPU box                           |
+| `MODEL_*_PATH`      | (empty)                 | Absolute or backend-relative paths to weights                 |
+| `CORS_ORIGINS`      | localhost set           | JSON array; add your deployed frontend URL                    |
+| `CORS_ORIGIN_REGEX` | (empty)                 | E.g. `https://.*\.azurestaticapps\.net` for SWA preview slots |
+| `VITE_API_BASE_URL` | `http://localhost:8000` | Frontend → backend base URL                                   |
+| `VITE_USE_MOCK`     | `false`                 | UI works without the backend                                  |
+
 
 ## Deployment to Azure
 
@@ -234,7 +240,7 @@ For a manual one-off:
 
 ```bash
 cd frontend
-npm ci
+npm ci && npm run build
 export SWA_CLI_DEPLOYMENT_TOKEN="$(az staticwebapp secrets list \
   -n scanberry-web -g rg-scanberry --query 'properties.apiKey' -o tsv)"
 npm run deploy:prod
@@ -244,21 +250,25 @@ npm run deploy:prod
 
 Two GitHub Actions workflows live under `.github/workflows/`:
 
-| Workflow | Trigger | Result |
-|---|---|---|
-| `azure-static-web-apps.yml` | Push / PR touching `frontend/**` | Builds the SPA and deploys it to Azure SWA (PR previews included) |
-| `azure-backend.yml` | Push touching `backend/**` or manual dispatch | Builds the Docker image, pushes it to ACR, switches the Web App to the new tag, restarts, and smoke-tests `/health` |
+
+| Workflow                    | Trigger                                       | Result                                                                                                              |
+| --------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `azure-static-web-apps.yml` | Push / PR touching `frontend/**`              | Builds the SPA and deploys it to Azure SWA (PR previews included)                                                   |
+| `azure-backend.yml`         | Push touching `backend/**` or manual dispatch | Builds the Docker image, pushes it to ACR, switches the Web App to the new tag, restarts, and smoke-tests `/health` |
+
 
 ### Required GitHub secrets
 
-| Secret | Used by | How to obtain |
-|---|---|---|
-| `AZURE_STATIC_WEB_APPS_API_TOKEN` | frontend | `az staticwebapp secrets list -n scanberry-web -g rg-scanberry --query 'properties.apiKey' -o tsv` |
-| `AZURE_CREDENTIALS` | backend | `az ad sp create-for-rbac --name scanberry-deploy --role contributor --scopes /subscriptions/<SUB_ID>/resourceGroups/rg-scanberry --sdk-auth` |
-| `ACR_NAME` | backend | e.g. `acrscanberry` |
-| `ACR_LOGIN_SERVER` | backend | e.g. `acrscanberry.azurecr.io` |
-| `AZURE_RESOURCE_GROUP` | backend | e.g. `rg-scanberry` |
-| `AZURE_WEBAPP_NAME` | backend | e.g. `scanberry-api` |
+
+| Secret                            | Used by  | How to obtain                                                                                                                                 |
+| --------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AZURE_STATIC_WEB_APPS_API_TOKEN` | frontend | `az staticwebapp secrets list -n scanberry-web -g rg-scanberry --query 'properties.apiKey' -o tsv`                                            |
+| `AZURE_CREDENTIALS`               | backend  | `az ad sp create-for-rbac --name scanberry-deploy --role contributor --scopes /subscriptions/<SUB_ID>/resourceGroups/rg-scanberry --sdk-auth` |
+| `ACR_NAME`                        | backend  | e.g. `acrscanberry`                                                                                                                           |
+| `ACR_LOGIN_SERVER`                | backend  | e.g. `acrscanberry.azurecr.io`                                                                                                                |
+| `AZURE_RESOURCE_GROUP`            | backend  | e.g. `rg-scanberry`                                                                                                                           |
+| `AZURE_WEBAPP_NAME`               | backend  | e.g. `scanberry-api`                                                                                                                          |
+
 
 Optional repository **variable** `MODELS_RELEASE_TAG` (e.g. `weights-v1`) tells the backend workflow to pull weights from a GitHub release before building. See `backend/Dockerfile` for how `models/` is copied.
 
@@ -266,16 +276,18 @@ Optional repository **variable** `MODELS_RELEASE_TAG` (e.g. `weights-v1`) tells 
 
 The full OpenAPI spec is served at `/docs` and `/redoc`. Key endpoints (all prefixed with `/api/v1`):
 
-| Method | Path | Description |
-|---|---|---|
-| `POST` | `/analyze` | Multipart image upload → full pipeline → analysis result (JSON) |
-| `GET`  | `/analyses` | Paginated list, optional `health_class` filter |
-| `GET`  | `/analyses/{id}` | Analysis details |
-| `DELETE` | `/analyses/{id}` | Delete record + associated files |
-| `GET`  | `/analyses/{id}/image` | Original uploaded image |
-| `GET`  | `/analyses/{id}/visualization` | Detection + classification overlay |
-| `GET`  | `/analyses/{id}/mask` | Per-pixel segmentation mask (when available) |
-| `GET`  | `/health` | Liveness + per-model load status |
+
+| Method   | Path                           | Description                                                     |
+| -------- | ------------------------------ | --------------------------------------------------------------- |
+| `POST`   | `/analyze`                     | Multipart image upload → full pipeline → analysis result (JSON) |
+| `GET`    | `/analyses`                    | Paginated list, optional `health_class` filter                  |
+| `GET`    | `/analyses/{id}`               | Analysis details                                                |
+| `DELETE` | `/analyses/{id}`               | Delete record + associated files                                |
+| `GET`    | `/analyses/{id}/image`         | Original uploaded image                                         |
+| `GET`    | `/analyses/{id}/visualization` | Detection + classification overlay                              |
+| `GET`    | `/analyses/{id}/mask`          | Per-pixel segmentation mask (when available)                    |
+| `GET`    | `/health`                      | Liveness + per-model load status                                |
+
 
 ## Model weights
 
