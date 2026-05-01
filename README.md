@@ -199,7 +199,7 @@ All runtime configuration is environment-driven. See `backend/.env.example` and 
 
 ## Deployment to Azure
 
-A full step-by-step (resource creation, IAM, networking) lives in [AZURE.md](AZURE.md). The condensed flow:
+The condensed flow:
 
 ### One-time infrastructure
 
@@ -217,8 +217,6 @@ az webapp create -n scanberry-api -g rg-scanberry -p plan-scanberry \
 az staticwebapp create -n scanberry-web -g rg-scanberry -l eastus2 --sku Free
 ```
 
-Set the App Service environment variables (see [`AZURE.md`](AZURE.md) for the full list, or copy from `backend/.env.example`).
-
 ### Backend — push a new image
 
 ```bash
@@ -230,11 +228,9 @@ az webapp restart -n scanberry-api -g rg-scanberry
 curl https://scanberry-api.azurewebsites.net/api/v1/health
 ```
 
-In CI this is automated by [`.github/workflows/azure-backend.yml`](.github/workflows/azure-backend.yml).
-
 ### Frontend — deploy the SPA
 
-CI does this on every push to `main` that touches `frontend/**` ([`.github/workflows/azure-static-web-apps.yml`](.github/workflows/azure-static-web-apps.yml)). For a manual one-off:
+For a manual one-off:
 
 ```bash
 cd frontend
@@ -297,7 +293,7 @@ This is a thesis project, but external suggestions are welcome via issues and PR
 - Run `npm run typecheck && npm run build` from `frontend/` before opening a PR.
 - Backend: keep handlers async; new endpoints must include OpenAPI docstrings.
 - Don't commit anything under `models/`, `dataset/`, or `backend/storage/`.
-- AI assistants: see [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) for the response contract.
+- AI assistants: [CLAUDE.md](CLAUDE.md) for the response contract.
 
 ## License
 
