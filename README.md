@@ -240,7 +240,7 @@ For a manual one-off:
 
 ```bash
 cd frontend
-npm ci && npm run build
+npm ci
 export SWA_CLI_DEPLOYMENT_TOKEN="$(az staticwebapp secrets list \
   -n scanberry-web -g rg-scanberry --query 'properties.apiKey' -o tsv)"
 npm run deploy:prod
