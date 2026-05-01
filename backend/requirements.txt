@@ -1,0 +1,32 @@
+# ScanBerry.io Backend
+# =====================
+
+# Web framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+
+# Database
+sqlalchemy==2.0.36
+alembic==1.14.1
+asyncpg==0.30.0
+aiosqlite==0.20.0
+
+# ML / CV
+torch>=2.0.0
+torchvision>=0.15.0
+ultralytics>=8.4.0
+opencv-python-headless>=4.8.0
+numpy>=1.24.0
+segmentation-models-pytorch>=0.3.3
+
+# Azure
+azure-storage-blob==12.24.0
+aiohttp>=3.9.0
+
+# Utilities
+pillow>=10.0.0
+pydantic-settings==2.7.1
+python-dotenv==1.0.1
+aiofiles==24.1.0
+httpx==0.28.1

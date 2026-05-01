@@ -1,0 +1,16 @@
+dataset/
+notebooks/
+scripts/
+docs/
+.git/
+__pycache__/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+*.md
+.env
+.venv/
+venv/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/

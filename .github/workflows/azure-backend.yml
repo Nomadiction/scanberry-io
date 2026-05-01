@@ -1,0 +1,111 @@
+name: Backend — Build & Deploy to Azure
+
+# Builds the backend Docker image, pushes it to Azure Container Registry,
+# and triggers an App Service restart so it picks up the new image tag.
+#
+# Triggered manually (workflow_dispatch) or on pushes to main that touch
+# backend/ or this workflow file. Disable the auto-trigger by removing
+# the `push:` block if you'd rather deploy by hand.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   AZURE_CREDENTIALS              Service principal JSON (az ad sp create-for-rbac --sdk-auth)
+#   ACR_NAME                       e.g. acrscanberry      (without .azurecr.io)
+#   ACR_LOGIN_SERVER               e.g. acrscanberry.azurecr.io
+#   AZURE_RESOURCE_GROUP           e.g. rg-scanberry
+#   AZURE_WEBAPP_NAME              e.g. scanberry-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/azure-backend.yml'
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Docker image tag (default: short SHA)'
+        required: false
+        default: ''
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve image tag
+        id: tag
+        run: |
+          if [ -n "${{ github.event.inputs.image_tag }}" ]; then
+            echo "value=${{ github.event.inputs.image_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: ACR login
+        run: az acr login --name ${{ secrets.ACR_NAME }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # NOTE: build context is the repo root, because Dockerfile copies
+      # backend/ AND models/. Model weights are NOT in git (see .gitignore);
+      # the workflow expects them to be staged via a separate step or
+      # mounted from a release artifact. For a fresh repo without weights,
+      # the image will build but inference endpoints will return 503.
+      - name: Stage model weights (optional)
+        if: ${{ vars.MODELS_RELEASE_TAG != '' }}
+        run: |
+          mkdir -p models
+          gh release download "${{ vars.MODELS_RELEASE_TAG }}" \
+            --repo "${{ github.repository }}" \
+            --dir models \
+            --pattern '*.pt' --pattern '*.pth' || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: backend/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.ACR_LOGIN_SERVER }}/scanberry-api:${{ steps.tag.outputs.value }}
+            ${{ secrets.ACR_LOGIN_SERVER }}/scanberry-api:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Update App Service to new image tag
+        run: |
+          az webapp config container set \
+            --name "${{ secrets.AZURE_WEBAPP_NAME }}" \
+            --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}" \
+            --container-image-name "${{ secrets.ACR_LOGIN_SERVER }}/scanberry-api:${{ steps.tag.outputs.value }}"
+
+      - name: Restart App Service
+        run: |
+          az webapp restart \
+            --name "${{ secrets.AZURE_WEBAPP_NAME }}" \
+            --resource-group "${{ secrets.AZURE_RESOURCE_GROUP }}"
+
+      - name: Smoke-test /health
+        run: |
+          for i in 1 2 3 4 5 6 7 8 9 10; do
+            sleep 15
+            if curl -fsSL "https://${{ secrets.AZURE_WEBAPP_NAME }}.azurewebsites.net/api/v1/health"; then
+              echo "Healthy."
+              exit 0
+            fi
+            echo "Attempt $i: not ready yet, retrying..."
+          done
+          echo "App Service did not become healthy in time." >&2
+          exit 1
