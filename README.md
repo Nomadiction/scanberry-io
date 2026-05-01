@@ -2,8 +2,8 @@
 
 > AI-powered diagnostics for blueberry plants (*Vaccinium corymbosum* L.) from a single field photo.
 
-[![Backend CI](https://github.com/USER/scanberry.io/actions/workflows/azure-backend.yml/badge.svg)](https://github.com/USER/scanberry.io/actions/workflows/azure-backend.yml)
-[![Frontend CI](https://github.com/USER/scanberry.io/actions/workflows/azure-static-web-apps.yml/badge.svg)](https://github.com/USER/scanberry.io/actions/workflows/azure-static-web-apps.yml)
+[![Backend CI](https://github.com/Nomadiction/scanberry.io/actions/workflows/azure-backend.yml/badge.svg)](https://github.com/USER/scanberry.io/actions/workflows/azure-backend.yml)
+[![Frontend CI](https://github.com/Nomadiction/scanberry.io/actions/workflows/azure-static-web-apps.yml/badge.svg)](https://github.com/USER/scanberry.io/actions/workflows/azure-static-web-apps.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ScanBerry.io takes a phone photo of a blueberry bush, runs a three-stage computer-vision pipeline (detection → classification + segmentation → damage quantification) and returns a health verdict, a per-pixel damage map and concrete agronomic recommendations — in under a few seconds on CPU-only hardware.
