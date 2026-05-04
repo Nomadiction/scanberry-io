@@ -46,9 +46,9 @@ const translations = {
   'result.title': { en: 'Results', ru: 'Результаты', es: 'Resultados', de: 'Ergebnisse' },
   'result.healthScore': { en: 'Health Score', ru: 'Индекс здоровья', es: 'Índice de salud', de: 'Gesundheitsindex' },
   'result.damageArea': { en: 'Damage Area', ru: 'Площадь поражения', es: 'Área afectada', de: 'Schadensfläche' },
-  'result.visualEvidence': { en: 'Visual Evidence', ru: 'Визуальные признаки', es: 'Evidencia visual', de: 'Visuelle Befunde' },
+  'result.visualEvidence': { en: 'Visual Indications', ru: 'Визуальные признаки', es: 'Indicaciones visuales', de: 'Visuelle Anzeigen' },
   'result.probabilities': { en: 'Classification Probabilities', ru: 'Вероятности классов', es: 'Probabilidades de clasificación', de: 'Klassenwahrscheinlichkeiten' },
-  'result.damageBreakdown': { en: 'Damage Breakdown', ru: 'Структура повреждений', es: 'Desglose de los daños', de: 'Schadensverteilung' },
+  'result.damageBreakdown': { en: 'Structure of damage', ru: 'Структура повреждений', es: 'Desglose de los daños', de: 'Schadensverteilung' },
   'result.details': { en: 'Details', ru: 'Подробности', es: 'Detalles', de: 'Details' },
   'result.processingTime': { en: 'Processing Time', ru: 'Время обработки', es: 'Tiempo de procesamiento', de: 'Verarbeitungszeit' },
   'result.analysisId': { en: 'Analysis ID', ru: 'ID анализа', es: 'ID del análisis', de: 'Analyse-ID' },
@@ -123,8 +123,8 @@ const translations = {
     de: 'Pilzbefall auf der Blattoberfläche festgestellt. Behandlung wird empfohlen.',
   },
   'status.dry.desc': {
-    en: 'Drought stress and tissue necrosis detected. Immediate action needed.',
-    ru: 'Обнаружены засушный стресс и некроз тканей. Необходимы безотлагательные меры.',
+    en: 'Drought stress and tissue necrosis detected. Immediate action is required.',
+    ru: 'Обнаружены водный дефицит и некроз тканей. Необходимо принять незамедлительные меры.',
     es: 'Se detectan estrés hídrico y necrosis de los tejidos. Se requiere una intervención inmediata.',
     de: 'Trockenstress und Gewebenekrose festgestellt. Sofortiges Eingreifen ist erforderlich.',
   },
@@ -136,9 +136,9 @@ const translations = {
   'severity.critical': { en: 'Critical', ru: 'Критическое', es: 'Crítico', de: 'Kritisch' },
 
   // Confidence
-  'confidence.high': { en: 'High certainty', ru: 'Высокая достоверность', es: 'Alta confianza', de: 'Hohe Zuverlässigkeit' },
-  'confidence.moderate': { en: 'Moderate certainty', ru: 'Средняя достоверность', es: 'Confianza moderada', de: 'Mittlere Zuverlässigkeit' },
-  'confidence.low': { en: 'Low certainty — consider rescanning', ru: 'Низкая достоверность — рекомендуем повторить сканирование', es: 'Confianza baja: se recomienda repetir el escaneo', de: 'Geringe Zuverlässigkeit — erneutes Scannen empfohlen' },
+  'confidence.high': { en: 'High confidence', ru: 'Высокая достоверность', es: 'Alta confianza', de: 'Hohe Zuverlässigkeit' },
+  'confidence.moderate': { en: 'Medium confidence', ru: 'Средняя достоверность', es: 'Confianza moderada', de: 'Mittlere Zuverlässigkeit' },
+  'confidence.low': { en: 'Low confidence — consider rescanning', ru: 'Низкая достоверность — рекомендуем повторить сканирование', es: 'Confianza baja: se recomienda repetir el escaneo', de: 'Geringe Zuverlässigkeit — erneutes Scannen empfohlen' },
 
   // Card metrics
   'card.health': { en: 'Health', ru: 'Здоровье', es: 'Salud', de: 'Gesundheit' },
@@ -163,13 +163,34 @@ const translations = {
   'steps.mold.1': { en: 'Fungal infection detected. Apply systemic fungicide (e.g., propiconazole or azoxystrobin) within 48 hours.', ru: 'Выявлена грибковая инфекция. В течение 48 часов проведите обработку системным фунгицидом (например, пропиконазолом или азоксистробином).', es: 'Se detecta una infección fúngica. Aplique un fungicida sistémico (por ejemplo, propiconazol o azoxistrobina) en las próximas 48 horas.', de: 'Pilzbefall festgestellt. Innerhalb von 48 Stunden mit einem systemischen Fungizid (z. B. Propiconazol oder Azoxystrobin) behandeln.' },
   'steps.mold.2': { en: 'Remove and dispose of heavily affected leaves to reduce spore load.', ru: 'Удалите сильно поражённые листья и утилизируйте их, чтобы снизить споровую нагрузку.', es: 'Retire y deseche las hojas más afectadas para reducir la carga de esporas.', de: 'Stark befallene Blätter entfernen und entsorgen, um den Sporendruck zu verringern.' },
   'steps.mold.3': { en: 'Increase plant spacing and prune lower branches to improve air circulation.', ru: 'Увеличьте расстояние между кустами и обрежьте нижние ветви, чтобы улучшить циркуляцию воздуха.', es: 'Aumente la distancia entre plantas y pode las ramas inferiores para mejorar la ventilación del cultivo.', de: 'Den Pflanzabstand vergrößern und die unteren Äste zurückschneiden, um die Luftzirkulation zu verbessern.' },
-  'steps.mold.4': { en: 'Inspect adjacent plants within a 2–3 m radius for early signs of spread.', ru: 'Осмотрите соседние кусты в радиусе 2–3 м на предмет ранних признаков распространения инфекции.', es: 'Revise las plantas vecinas en un radio de 2–3 m para detectar signos tempranos de propagación.', de: 'Benachbarte Pflanzen im Umkreis von 2–3 m auf frühe Anzeichen einer Ausbreitung untersuchen.' },
+  'steps.mold.4': { en: 'Inspect adjacent plants within a 2–3 m radius for early signs of infections spread.', ru: 'Осмотрите соседние кусты в радиусе 2–3 м на предмет ранних признаков распространения инфекции.', es: 'Revise las plantas vecinas en un radio de 2–3 m para detectar signos tempranos de propagación.', de: 'Benachbarte Pflanzen im Umkreis von 2–3 m auf frühe Anzeichen einer Ausbreitung untersuchen.' },
   'steps.mold.5': { en: 'Avoid overhead irrigation — use drip system to keep foliage dry.', ru: 'Откажитесь от дождевания: используйте капельный полив, чтобы листва оставалась сухой.', es: 'Evite el riego por aspersión: utilice riego por goteo para mantener el follaje seco.', de: 'Auf Überkopfbewässerung verzichten und stattdessen Tropfbewässerung einsetzen, damit das Laub trocken bleibt.' },
   'steps.dry.1': { en: 'Tissue necrosis and dehydration observed. Increase watering frequency immediately (daily in hot periods).', ru: 'Выявлены некроз тканей и обезвоживание. Незамедлительно увеличьте частоту полива (в жаркие дни — ежедневно).', es: 'Se observan necrosis tisular y deshidratación. Aumente de inmediato la frecuencia de riego (a diario en días calurosos).', de: 'Gewebenekrose und Austrocknung festgestellt. Bewässerungshäufigkeit umgehend erhöhen (in Hitzeperioden täglich).' },
   'steps.dry.2': { en: 'Inspect root zone for compaction or damage that may impair water uptake.', ru: 'Проверьте прикорневую зону на уплотнение почвы и повреждения, способные нарушать поглощение воды.', es: 'Inspeccione la zona radicular en busca de compactación o daños que puedan dificultar la absorción de agua.', de: 'Den Wurzelbereich auf Bodenverdichtung oder Schäden prüfen, die die Wasseraufnahme beeinträchtigen könnten.' },
-  'steps.dry.3': { en: 'Apply organic mulch (5–10 cm layer) around the base to retain soil moisture.', ru: 'Замульчируйте приствольный круг органической мульчей слоем 5–10 см, чтобы удержать влагу в почве.', es: 'Aplique acolchado orgánico (capa de 5–10 cm) alrededor de la base para conservar la humedad del suelo.', de: 'Eine 5–10 cm dicke Schicht organischen Mulchs um den Wurzelbereich ausbringen, um die Bodenfeuchte zu erhalten.' },
+  'steps.dry.3': { en: 'Apply organic mulch (5–10 cm layer) around the base to retain soil moisture.', ru: 'Нанесите органическую мульчу слоем (5–10 см) вокруг основания, чтобы удержать влагу в почве.', es: 'Aplique acolchado orgánico (capa de 5–10 cm) alrededor de la base para conservar la humedad del suelo.', de: 'Eine 5–10 cm dicke Schicht organischen Mulchs um den Wurzelbereich ausbringen, um die Bodenfeuchte zu erhalten.' },
   'steps.dry.4': { en: 'Provide temporary shade netting during peak solar radiation hours (11:00–15:00).', ru: 'В часы пиковой солнечной активности (11:00–15:00) установите временную затеняющую сетку.', es: 'Coloque una malla de sombreo temporal durante las horas de máxima radiación solar (11:00–15:00).', de: 'In den Stunden mit der stärksten Sonneneinstrahlung (11:00–15:00) ein temporäres Schattennetz spannen.' },
   'steps.dry.5': { en: 'Monitor recovery over the next 7 days; persistent necrosis may indicate irreversible tissue damage.', ru: 'В течение ближайших 7 дней отслеживайте восстановление: сохраняющийся некроз может указывать на необратимое повреждение тканей.', es: 'Realice un seguimiento de la recuperación durante los próximos 7 días: la necrosis persistente puede indicar un daño tisular irreversible.', de: 'Die Erholung über die nächsten 7 Tage hinweg beobachten: Anhaltende Nekrose kann auf irreversible Gewebeschäden hindeuten.' },
+
+  // Time units
+  'time.millisecond': { en: 'ms', ru: 'мс', es: 'ms', de: 'ms' },
+  'time.second': { en: 's', ru: 'с', es: 's', de: 's' },
+  'time.seconds': { en: 's', ru: 'сек', es: 's', de: 's' },
+  'time.minute': { en: 'min', ru: 'мин', es: 'min', de: 'min' },
+  'time.minutes': { en: 'min', ru: 'мин', es: 'min', de: 'min' },
+  'time.hour': { en: 'h', ru: 'ч', es: 'h', de: 'h' },
+  'time.hours': { en: 'h', ru: 'ч', es: 'h', de: 'h' },
+  'time.day': { en: 'd', ru: 'д', es: 'd', de: 'd' },
+  'time.days': { en: 'd', ru: 'д', es: 'd', de: 'd' },
+  'time.week': { en: 'w', ru: 'нед', es: 'sem', de: 'Wo' },
+  'time.weeks': { en: 'w', ru: 'нед', es: 'sem', de: 'Wo' },
+
+  // Units
+  'units.pixels': { en: 'px', ru: 'пиксель', es: 'px', de: 'px' },
+  'units.pixelsShort': { en: 'px', ru: 'пкс', es: 'px', de: 'px' },
+
+  // Number formatting
+  'number.decimal': { en: '.', ru: ',', es: ',', de: ',' },
+  'number.thousands': { en: ',', ru: ' ', es: '.', de: '.' },
 } as const;
 
 export type TranslationKey = keyof typeof translations;

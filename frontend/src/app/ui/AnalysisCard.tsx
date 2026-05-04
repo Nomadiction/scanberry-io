@@ -32,7 +32,7 @@ export function AnalysisCard({
   isFavorite,
 }: AnalysisCardProps) {
   const color = STATUS_COLORS[healthClass];
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   const healthScore = useMemo(() => {
     const classWeight = STATUS_SEVERITY[healthClass].score;
@@ -61,7 +61,7 @@ export function AnalysisCard({
                 )}
               </div>
               <span className="text-[11px] text-muted-foreground">
-                {formatDate(createdAt)}
+                {formatDate(createdAt, locale)}
               </span>
             </div>
 

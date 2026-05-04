@@ -12,7 +12,7 @@ import { useLocale } from '../../lib/i18n';
 import { useAnalysis, useDeleteAnalysis } from '../../api/hooks';
 import { useCountUp } from '../../lib/hooks';
 import { STATUS_COLORS, STATUS_SEVERITY } from '../../lib/constants';
-import { formatDate, formatDuration } from '../../lib/utils';
+import { formatDate, formatDuration, formatPixels } from '../../lib/utils';
 import { shareOrCopyLink } from '../../lib/share';
 import { BASE_DELAY, STAGGER_DELAY } from '../../lib/constants';
 import { ArrowLeft, Share2, AlertCircle, Info, Loader2, Clock, Hash, Cpu, Trash2 } from 'lucide-react';
@@ -48,7 +48,7 @@ export const ResultScreen = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { haptic } = useTelegram();
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const { data: analysis, isLoading, isError } = useAnalysis(id ?? '');
   const deleteMutation = useDeleteAnalysis();
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -212,7 +212,7 @@ export const ResultScreen = () => {
                 <div className="flex items-start justify-between mb-2">
                   <StatusBadge healthClass={analysis.health_class} />
                   <span className="text-[11px] text-muted-foreground">
-                    {formatDate(analysis.created_at)}
+                    {formatDate(analysis.created_at, locale)}
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -349,7 +349,7 @@ export const ResultScreen = () => {
                       />
                     </div>
                     <div className="mt-0.5 text-[10px] text-muted-foreground">
-                      {damage.area_pixels.toLocaleString()} px
+                      {formatPixels(damage.area_pixels, locale)}
                     </div>
                   </div>
                 ))}
@@ -374,7 +374,7 @@ export const ResultScreen = () => {
                 <span className="text-sm">{t('result.processingTime')}</span>
               </div>
               <span className="text-sm font-mono font-semibold">
-                {formatDuration(analysis.processing_time_ms)}
+                {formatDuration(analysis.processing_time_ms, locale)}
               </span>
             </div>
             <div className="h-px bg-border mx-4" />

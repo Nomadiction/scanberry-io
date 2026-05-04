@@ -28,7 +28,7 @@ const STATUS_LABEL_KEYS: Record<HealthClass, TranslationKey> = {
 export const HistoryScreen = () => {
   const navigate = useNavigate();
   const { haptic } = useTelegram();
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const { isFavorite, toggle: toggleFavorite } = useFavorites();
   const deleteMutation = useDeleteAnalysis();
 
@@ -51,7 +51,7 @@ export const HistoryScreen = () => {
       const q = searchQuery.toLowerCase();
       list = list.filter((a) => {
         const label = STATUS_LABELS[a.health_class].toLowerCase();
-        const date = formatDate(a.created_at).toLowerCase();
+        const date = formatDate(a.created_at, locale).toLowerCase();
         return label.includes(q) || date.includes(q) || a.id.includes(q);
       });
     }
