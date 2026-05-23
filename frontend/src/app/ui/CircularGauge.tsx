@@ -1,3 +1,6 @@
+import { memo } from 'react';
+import { useCountUp } from '../lib/hooks';
+
 interface CircularGaugeProps {
   value: number; // 0–100
   size?: number;
@@ -6,11 +9,17 @@ interface CircularGaugeProps {
   label: string;
 }
 
+interface AnimatedCircularGaugeProps extends Omit<CircularGaugeProps, 'value'> {
+  target: number;
+  duration?: number;
+  delay?: number;
+}
+
 /**
  * Круговой индикатор: дуга и число в центре берутся из одного `value`
  * (например из useCountUp), поэтому заполнение и проценты всегда совпадают.
  */
-export function CircularGauge({
+function CircularGaugeImpl({
   value,
   size = 100,
   strokeWidth = 6,
@@ -59,3 +68,19 @@ export function CircularGauge({
     </div>
   );
 }
+
+export const CircularGauge = memo(CircularGaugeImpl);
+
+/**
+ * Same gauge, but owns the count-up animation locally so 60fps re-renders
+ * stay scoped to this subtree (parent ResultScreen does not re-render per frame).
+ */
+export const AnimatedCircularGauge = memo(function AnimatedCircularGauge({
+  target,
+  duration = 1000,
+  delay = 0,
+  ...rest
+}: AnimatedCircularGaugeProps) {
+  const value = useCountUp(target, duration, delay);
+  return <CircularGaugeImpl value={value} {...rest} />;
+});

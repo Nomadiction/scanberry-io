@@ -242,7 +242,7 @@ For a manual one-off:
 cd frontend
 npm ci
 export SWA_CLI_DEPLOYMENT_TOKEN="$(az staticwebapp secrets list \
-  -n scanberry-web -g rg-scanberry --query 'properties.apiKey' -o tsv)"
+  -n scanberry-web -g rg-scanberry --query 'properties.apiKey' -o tsv)" (swa deploy --deployment-token tokenexample --app-location dist --output-location . --env production)
 npm run deploy:prod
 ```
 

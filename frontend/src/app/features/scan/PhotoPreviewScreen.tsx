@@ -30,10 +30,12 @@ export const PhotoPreviewScreen = () => {
   };
 
   return (
-    <div className="min-h-screen-safe bg-black flex flex-col">
+    // Fixed viewport height: the image area shrinks, the action bar always
+    // stays on screen — no page scroll, no tall-image overflow.
+    <div className="h-screen-safe bg-black flex flex-col overflow-hidden">
       {/* Image preview */}
       <motion.div
-        className="flex-1 relative flex items-center justify-center overflow-hidden min-h-0"
+        className="flex-1 min-h-0 relative flex items-center justify-center overflow-hidden p-3"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
@@ -41,18 +43,18 @@ export const PhotoPreviewScreen = () => {
         <img
           src={previewUrl}
           alt="Captured plant photo"
-          className="max-w-full max-h-full object-contain"
+          className="block max-w-full max-h-full w-auto h-auto object-contain"
         />
       </motion.div>
 
       {/* Bottom actions */}
       <motion.div
-        className="p-6 pb-safe bg-gradient-to-t from-black/90 via-black/50 to-transparent"
+        className="flex-shrink-0 px-6 pt-4 pb-safe bg-gradient-to-t from-black/90 via-black/50 to-transparent"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <p className="text-center text-white/60 text-[13px] mb-4">
+        <p className="text-center text-white/60 text-[13px] mb-3">
           Review your photo before analysis
         </p>
         <div className="flex gap-3">

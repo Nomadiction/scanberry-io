@@ -7,9 +7,26 @@ import { useAnalyses } from '../../api/hooks';
 import { useLocale } from '../../lib/i18n';
 import { SPRING_CONFIG, BASE_DELAY, STAGGER_DELAY, STATUS_SEVERITY } from '../../lib/constants';
 import { Camera, History, Leaf, Settings, Activity, Heart, Target } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useCountUp } from '../../lib/hooks';
 import { SettingsSheet } from '../settings/SettingsSheet';
+
+// Isolates 60fps re-renders to a single <span> so the parent screen does not
+// re-render on every animation frame.
+const AnimatedCount = memo(function AnimatedCount({
+  target,
+  duration = 800,
+  delay = 0,
+  format,
+}: {
+  target: number;
+  duration?: number;
+  delay?: number;
+  format: (n: number) => string;
+}) {
+  const v = useCountUp(target, duration, delay);
+  return <>{format(v)}</>;
+});
 
 export const HomeScreen = () => {
   const navigate = useNavigate();
@@ -37,10 +54,6 @@ export const HomeScreen = () => {
 
   const recentAnalyses = analyses.slice(0, 3);
   const [showSettings, setShowSettings] = useState(false);
-
-  const animTotal = useCountUp(stats.total, 600, 200);
-  const animHealthRate = useCountUp(stats.healthRate, 800, 300);
-  const animAvgHealth = useCountUp(stats.avgHealth, 800, 400);
 
   const handleScan = () => {
     haptic.light();
@@ -98,28 +111,33 @@ export const HomeScreen = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: BASE_DELAY }}
         >
-          {[
-            { icon: Activity, label: t('home.scans'), value: String(Math.round(animTotal)), color: 'text-primary', accent: 'var(--primary)' },
-            { icon: Heart, label: t('home.healthy'), value: `${Math.round(animHealthRate)}%`, color: 'text-primary', accent: 'var(--primary)' },
-            { icon: Target, label: t('home.avgHealth'), value: `${animAvgHealth.toFixed(1)}%`, color: 'text-primary', accent: 'var(--primary)' },
-          ].map((stat, i) => (
+          {([
+            { icon: Activity, label: t('home.scans'), target: stats.total, duration: 600, delay: 200, format: (n: number) => String(Math.round(n)) },
+            { icon: Heart, label: t('home.healthy'), target: stats.healthRate, duration: 800, delay: 300, format: (n: number) => `${Math.round(n)}%` },
+            { icon: Target, label: t('home.avgHealth'), target: stats.avgHealth, duration: 800, delay: 400, format: (n: number) => `${n.toFixed(1)}%` },
+          ] as const).map((stat, i) => (
             <Card key={stat.label} className="overflow-hidden">
               <CardContent className="p-3.5">
                 <div className="flex items-center gap-1.5 mb-2">
                   <div
                     className="w-6 h-6 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: `color-mix(in srgb, ${stat.accent} 12%, transparent)` }}
+                    style={{ backgroundColor: 'color-mix(in srgb, var(--primary) 12%, transparent)' }}
                   >
-                    <stat.icon className={`w-3 h-3 ${stat.color}`} />
+                    <stat.icon className="w-3 h-3 text-primary" />
                   </div>
                 </div>
                 <motion.div
-                  className={`text-xl font-mono font-semibold ${stat.color} leading-tight mb-0.5`}
+                  className="text-xl font-mono font-semibold text-primary leading-tight mb-0.5"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: BASE_DELAY + i * 0.1 }}
                 >
-                  {stat.value}
+                  <AnimatedCount
+                    target={stat.target}
+                    duration={stat.duration}
+                    delay={stat.delay}
+                    format={stat.format}
+                  />
                 </motion.div>
                 <span className="text-[10px] text-muted-foreground font-medium">{stat.label}</span>
               </CardContent>

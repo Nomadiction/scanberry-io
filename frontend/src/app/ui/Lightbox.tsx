@@ -90,8 +90,8 @@ export function Lightbox({ image, onClose }: LightboxProps) {
           aria-modal="true"
           aria-label={image.label ?? 'Image viewer'}
         >
-          {/* Dimmed, blurred backdrop */}
-          <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
+          {/* Dimmed backdrop (no blur — blur during opacity transition causes jank) */}
+          <div className="absolute inset-0 bg-black/95" />
 
           {/* Close button (top-right, safe-area aware) */}
           <motion.button

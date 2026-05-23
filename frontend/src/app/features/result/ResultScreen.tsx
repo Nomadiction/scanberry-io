@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { useNavigate, useParams } from 'react-router';
 import { Button } from '../../ui/Button';
 import { Card, CardContent, CardHeader } from '../../ui/Card';
-import { CircularGauge } from '../../ui/CircularGauge';
+import { AnimatedCircularGauge } from '../../ui/CircularGauge';
 import { StatusBadge } from '../../ui/StatusBadge';
 import { EmptyState } from '../../ui/EmptyState';
 import { ImageGallery } from '../../ui/ImageGallery';
@@ -10,7 +10,6 @@ import type { LightboxImage } from '../../ui/Lightbox';
 import { useTelegram } from '../../lib/telegram';
 import { useLocale } from '../../lib/i18n';
 import { useAnalysis, useDeleteAnalysis } from '../../api/hooks';
-import { useCountUp } from '../../lib/hooks';
 import { STATUS_COLORS, STATUS_SEVERITY } from '../../lib/constants';
 import { formatDate, formatDuration, formatPixels } from '../../lib/utils';
 import { shareOrCopyLink } from '../../lib/share';
@@ -60,9 +59,6 @@ export const ResultScreen = () => {
     const conf = analysis.confidence;
     return Math.round(classWeight * (conf / 100) + classWeight * (1 - conf / 100) * 0.5);
   }, [analysis]);
-
-  const healthScoreAnim = useCountUp(healthScore, 1000, 400);
-  const damageAnim = useCountUp(analysis?.damage_percentage ?? 0, 1000, 600);
 
   const confidenceInfo = useMemo(() => {
     const confidence = analysis?.confidence ?? 0;
@@ -222,14 +218,18 @@ export const ResultScreen = () => {
 
               <CardContent className="pb-4 pt-1">
                 <div className="flex justify-around">
-                  <CircularGauge
-                    value={healthScoreAnim}
+                  <AnimatedCircularGauge
+                    target={healthScore}
+                    duration={1000}
+                    delay={400}
                     color={STATUS_COLORS[analysis.health_class]}
                     label={t('result.healthScore')}
                   />
                   {analysis.damage_percentage > 0 && (
-                    <CircularGauge
-                      value={damageAnim}
+                    <AnimatedCircularGauge
+                      target={analysis.damage_percentage}
+                      duration={1000}
+                      delay={600}
                       color="#EF4444"
                       label={t('result.damageArea')}
                     />

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { SPRING_CONFIG } from '../lib/constants';
 import { Button } from './Button';
@@ -28,7 +28,6 @@ export const ConfirmDialog = ({
   onCancel,
 }: ConfirmDialogProps) => {
   const [mounted, setMounted] = useState(false);
-  const savedScrollY = useRef(0);
 
   useEffect(() => {
     setMounted(true);
@@ -36,12 +35,9 @@ export const ConfirmDialog = ({
 
   useEffect(() => {
     if (isOpen) {
-      savedScrollY.current = window.scrollY;
-      window.scrollTo(0, 0);
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = '';
-        window.scrollTo(0, savedScrollY.current);
       };
     }
   }, [isOpen]);
@@ -65,11 +61,11 @@ export const ConfirmDialog = ({
       {isOpen && (
         <>
           <motion.div
-            className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-black/60"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.18 }}
             onClick={loading ? undefined : onCancel}
             aria-hidden
           />

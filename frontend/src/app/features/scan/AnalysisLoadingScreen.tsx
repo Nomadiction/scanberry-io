@@ -38,7 +38,6 @@ export const AnalysisLoadingScreen = () => {
   const navigateRef = useRef(navigate);
   navigateRef.current = navigate;
 
-  const [scanY, setScanY] = useState(0);
   const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
@@ -92,26 +91,6 @@ export const AnalysisLoadingScreen = () => {
     return () => timeouts.forEach(clearTimeout);
   }, []);
 
-  useEffect(() => {
-    let raf = 0;
-    let start: number | null = null;
-    const duration = 2000;
-
-    const tick = (ts: number) => {
-      if (document.hidden) {
-        start = null;
-        raf = requestAnimationFrame(tick);
-        return;
-      }
-      if (start === null) start = ts;
-      const progress = ((ts - start) % duration) / duration;
-      setScanY(progress * 100);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
   const currentStepLabel = t(STEP_KEYS[Math.min(currentStep, STEP_KEYS.length - 1)]!);
   const statusMessage = upload.isPending
     ? `${currentStepLabel}...`
@@ -134,13 +113,17 @@ export const AnalysisLoadingScreen = () => {
               className="w-full h-full object-cover"
               onError={() => setImgError(true)}
             />
+            {/* GPU-only translateY keyframes — no React re-render per frame.
+                Container is w-48 (192px); scan line sweeps 0→192px. */}
             <motion.div
-              className="absolute left-0 right-0 h-0.5 bg-primary shadow-[0_0_8px_2px] shadow-primary/50"
-              style={{ top: `${scanY}%` }}
+              className="absolute left-0 right-0 top-0 h-0.5 bg-primary shadow-[0_0_8px_2px] shadow-primary/50 pointer-events-none"
+              animate={{ y: [0, 192, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
             />
-            <div
-              className="absolute left-0 right-0 h-12 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"
-              style={{ top: `${Math.max(0, scanY - 6)}%` }}
+            <motion.div
+              className="absolute left-0 right-0 top-0 h-12 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"
+              animate={{ y: [-12, 180, -12] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
             />
           </div>
         ) : (

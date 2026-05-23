@@ -6,11 +6,18 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
  * Уважает prefers-reduced-motion — моментально возвращает target.
  */
 export function useCountUp(target: number, duration = 800, delay = 0): number {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(target === 0 ? 0 : 0);
   const rafRef = useRef<number | null>(null);
   const startRef = useRef<number | null>(null);
 
   useEffect(() => {
+    // Nothing to animate to 0; also lets ResultScreen avoid 60fps re-renders
+    // when there is no damage / empty state.
+    if (target === 0) {
+      setValue(0);
+      return;
+    }
+
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
       setValue(target);
