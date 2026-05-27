@@ -116,30 +116,34 @@ export const HomeScreen = () => {
             { icon: Heart, label: t('home.healthy'), target: stats.healthRate, duration: 800, delay: 300, format: (n: number) => `${Math.round(n)}%` },
             { icon: Target, label: t('home.avgHealth'), target: stats.avgHealth, duration: 800, delay: 400, format: (n: number) => `${n.toFixed(1)}%` },
           ] as const).map((stat, i) => (
-            <Card key={stat.label} className="overflow-hidden">
-              <CardContent className="p-3.5">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <div
-                    className="w-6 h-6 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: 'color-mix(in srgb, var(--primary) 12%, transparent)' }}
-                  >
-                    <stat.icon className="w-3 h-3 text-primary" />
-                  </div>
-                </div>
-                <motion.div
-                  className="text-xl font-mono font-semibold text-primary leading-tight mb-0.5"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: BASE_DELAY + i * 0.1 }}
+            <Card key={stat.label} className="overflow-hidden flex flex-col">
+              <CardContent className="p-3.5 flex-1 flex flex-col">
+                <div
+                  className="w-6 h-6 rounded-lg flex items-center justify-center mb-2"
+                  style={{ backgroundColor: 'color-mix(in srgb, var(--primary) 12%, transparent)' }}
                 >
-                  <AnimatedCount
-                    target={stat.target}
-                    duration={stat.duration}
-                    delay={stat.delay}
-                    format={stat.format}
-                  />
-                </motion.div>
-                <span className="text-[10px] text-muted-foreground font-medium">{stat.label}</span>
+                  <stat.icon className="w-3 h-3 text-primary" />
+                </div>
+                {/* Push value+label to the bottom: all 3 cards align on the
+                    label baseline regardless of label length. */}
+                <div className="mt-auto min-w-0">
+                  <motion.div
+                    className="text-xl font-mono font-semibold text-primary leading-tight mb-0.5"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: BASE_DELAY + i * 0.1 }}
+                  >
+                    <AnimatedCount
+                      target={stat.target}
+                      duration={stat.duration}
+                      delay={stat.delay}
+                      format={stat.format}
+                    />
+                  </motion.div>
+                  <span className="block text-[10px] text-muted-foreground font-medium leading-tight truncate">
+                    {stat.label}
+                  </span>
+                </div>
               </CardContent>
             </Card>
           ))}

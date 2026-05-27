@@ -7,7 +7,7 @@ const translations = {
   'home.subtitle': { en: 'Blueberry plant diagnostics', ru: 'Диагностика кустов голубики', es: 'Diagnóstico de plantas de arándano', de: 'Diagnostik für Heidelbeerpflanzen' },
   'home.scans': { en: 'Scans', ru: 'Снимки', es: 'Escaneos', de: 'Scans' },
   'home.healthy': { en: 'Healthy', ru: 'Здоровые', es: 'Sanas', de: 'Gesund' },
-  'home.avgHealth': { en: 'Avg Health', ru: 'Среднее здоровье', es: 'Salud media', de: 'Ø Gesundheit' },
+  'home.avgHealth': { en: 'Avg Health', ru: 'Ср. здоровье', es: 'Salud media', de: 'Ø Gesundheit' },
   'home.tapToScan': { en: 'Tap to scan a plant', ru: 'Нажмите, чтобы отсканировать растение', es: 'Toca para escanear una planta', de: 'Tippe, um eine Pflanze zu scannen' },
   'home.recent': { en: 'Recent', ru: 'Недавние', es: 'Recientes', de: 'Letzte' },
   'home.viewAll': { en: 'View All', ru: 'Все', es: 'Ver todos', de: 'Alle anzeigen' },

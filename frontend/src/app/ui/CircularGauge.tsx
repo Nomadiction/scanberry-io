@@ -64,7 +64,11 @@ function CircularGaugeImpl({
           </span>
         </div>
       </div>
-      <span className="text-[11px] text-muted-foreground font-medium tracking-wide">{label}</span>
+      <span
+        className="text-[11px] text-muted-foreground font-medium tracking-wide text-center leading-tight max-w-[8rem]"
+      >
+        {label}
+      </span>
     </div>
   );
 }

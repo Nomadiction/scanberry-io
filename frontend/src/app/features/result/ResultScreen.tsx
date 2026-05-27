@@ -122,7 +122,9 @@ export const ResultScreen = () => {
 
   const handleBack = () => {
     haptic.light();
-    navigate(-1);
+    // Always go to Home from result — the previous entry in history is the
+    // loading screen / preview, which would just bounce the user mid-flow.
+    navigate('/home');
   };
 
   const handleShare = async () => {
