@@ -191,6 +191,82 @@ const translations = {
   // Number formatting
   'number.decimal': { en: '.', ru: ',', es: ',', de: ',' },
   'number.thousands': { en: ',', ru: ' ', es: '.', de: '.' },
+
+  // Common
+  'common.tryAgain': { en: 'Try Again', ru: 'Повторить', es: 'Reintentar', de: 'Erneut versuchen' },
+  'common.confirm': { en: 'Confirm', ru: 'Подтвердить', es: 'Confirmar', de: 'Bestätigen' },
+  'common.cancel': { en: 'Cancel', ru: 'Отмена', es: 'Cancelar', de: 'Abbrechen' },
+  'common.somethingWentWrong': { en: 'Something went wrong', ru: 'Что-то пошло не так', es: 'Algo salió mal', de: 'Etwas ist schiefgelaufen' },
+  'common.unexpectedError': { en: 'An unexpected error occurred. Please try again.', ru: 'Произошла непредвиденная ошибка. Повторите попытку.', es: 'Se produjo un error inesperado. Por favor, inténtalo de nuevo.', de: 'Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.' },
+  'common.goBack': { en: 'Go back', ru: 'Назад', es: 'Atrás', de: 'Zurück' },
+
+  // Onboarding
+  'onboarding.title': { en: 'Blueberry Health', ru: 'Здоровье голубики', es: 'Salud del arándano', de: 'Heidelbeer-Gesundheit' },
+  'onboarding.tagline': { en: 'AI-powered plant diagnostics for', ru: 'ИИ-диагностика растений рода', es: 'Diagnóstico vegetal con IA para', de: 'KI-Pflanzendiagnostik für' },
+  'onboarding.feature1.title': { en: 'AI-Powered Analysis', ru: 'Анализ на базе ИИ', es: 'Análisis impulsado por IA', de: 'KI-gestützte Analyse' },
+  'onboarding.feature1.desc': { en: 'Advanced ML pipeline detects plant health in seconds', ru: 'Продвинутый ML-пайплайн определяет состояние растения за секунды', es: 'Pipeline avanzado de ML que detecta la salud de la planta en segundos', de: 'Fortschrittliche ML-Pipeline erkennt den Pflanzenzustand in Sekunden' },
+  'onboarding.feature2.title': { en: 'Precise Diagnostics', ru: 'Точная диагностика', es: 'Diagnóstico preciso', de: 'Präzise Diagnostik' },
+  'onboarding.feature2.desc': { en: 'Pixel-level damage segmentation and classification', ru: 'Попиксельная сегментация повреждений и классификация', es: 'Segmentación y clasificación de daños a nivel de píxel', de: 'Pixelgenaue Schadenssegmentierung und Klassifikation' },
+  'onboarding.feature3.title': { en: 'Track History', ru: 'История наблюдений', es: 'Historial de seguimiento', de: 'Verlauf verfolgen' },
+  'onboarding.feature3.desc': { en: 'Monitor plant health over time with full analysis history', ru: 'Отслеживайте состояние растения с полной историей анализов', es: 'Supervisa la salud de la planta con un historial completo', de: 'Pflanzengesundheit im Zeitverlauf mit vollständigem Analyseverlauf verfolgen' },
+  'onboarding.feature4.title': { en: 'Instant Results', ru: 'Мгновенные результаты', es: 'Resultados instantáneos', de: 'Sofortige Ergebnisse' },
+  'onboarding.feature4.desc': { en: 'Get detailed health reports in under 2 seconds', ru: 'Подробный отчёт о состоянии меньше чем за 2 секунды', es: 'Obtén informes detallados de salud en menos de 2 segundos', de: 'Detaillierte Gesundheitsberichte in unter 2 Sekunden' },
+  'onboarding.getStarted': { en: 'Get Started', ru: 'Начать', es: 'Empezar', de: 'Loslegen' },
+  'onboarding.footer': { en: 'Take a photo or upload an image to analyze plant health', ru: 'Сделайте снимок или загрузите фото, чтобы проанализировать растение', es: 'Toma una foto o sube una imagen para analizar la salud de la planta', de: 'Mache ein Foto oder lade ein Bild hoch, um die Pflanzengesundheit zu analysieren' },
+
+  // Photo preview
+  'preview.alt': { en: 'Captured plant photo', ru: 'Сделанное фото растения', es: 'Foto capturada de la planta', de: 'Aufgenommenes Pflanzenfoto' },
+  'preview.hint': { en: 'Review your photo before analysis', ru: 'Проверьте снимок перед анализом', es: 'Revisa tu foto antes del análisis', de: 'Überprüfe dein Foto vor der Analyse' },
+  'preview.retake': { en: 'Retake', ru: 'Переснять', es: 'Volver a tomar', de: 'Neu aufnehmen' },
+  'preview.analyze': { en: 'Analyze', ru: 'Анализировать', es: 'Analizar', de: 'Analysieren' },
+  'preview.retakeAria': { en: 'Retake photo', ru: 'Сделать снимок заново', es: 'Volver a tomar la foto', de: 'Foto neu aufnehmen' },
+
+  // Camera
+  'camera.title': { en: 'Camera', ru: 'Камера', es: 'Cámara', de: 'Kamera' },
+  'camera.unavailableTitle': { en: 'Camera Unavailable', ru: 'Камера недоступна', es: 'Cámara no disponible', de: 'Kamera nicht verfügbar' },
+  'camera.useGallery': { en: 'Use Gallery Instead', ru: 'Выбрать из галереи', es: 'Usar la galería', de: 'Galerie verwenden' },
+  'camera.permissionHint': { en: 'To enable camera: Open browser settings → Site permissions → Camera → Allow', ru: 'Чтобы включить камеру: настройки браузера → разрешения для сайта → Камера → Разрешить', es: 'Para activar la cámara: ajustes del navegador → permisos del sitio → Cámara → Permitir', de: 'Kamera aktivieren: Browser-Einstellungen → Website-Berechtigungen → Kamera → Erlauben' },
+  'camera.framingHint': { en: 'Position plant within frame', ru: 'Расположите растение в кадре', es: 'Encuadra la planta', de: 'Pflanze im Rahmen positionieren' },
+  'camera.errNotSupported': { en: 'Camera not supported on this device or browser.', ru: 'Камера не поддерживается на этом устройстве или в браузере.', es: 'La cámara no es compatible con este dispositivo o navegador.', de: 'Kamera wird auf diesem Gerät oder Browser nicht unterstützt.' },
+  'camera.errDenied': { en: 'Camera access denied. Please allow camera permissions in your browser settings.', ru: 'Доступ к камере запрещён. Разрешите доступ к камере в настройках браузера.', es: 'Acceso a la cámara denegado. Concede el permiso en los ajustes del navegador.', de: 'Kamerazugriff verweigert. Erlaube den Zugriff in den Browsereinstellungen.' },
+  'camera.errNotFound': { en: 'No camera found on this device.', ru: 'На этом устройстве не найдена камера.', es: 'No se encontró ninguna cámara en este dispositivo.', de: 'Auf diesem Gerät wurde keine Kamera gefunden.' },
+  'camera.errInUse': { en: 'Camera is already in use by another application.', ru: 'Камера уже используется другим приложением.', es: 'La cámara ya está en uso por otra aplicación.', de: 'Die Kamera wird bereits von einer anderen Anwendung verwendet.' },
+  'camera.errConstraints': { en: 'Camera constraints not supported. Try using gallery instead.', ru: 'Параметры камеры не поддерживаются. Попробуйте выбрать фото из галереи.', es: 'Los parámetros de la cámara no son compatibles. Prueba con la galería.', de: 'Kameraeinstellungen werden nicht unterstützt. Versuche es mit der Galerie.' },
+  'camera.errGeneric': { en: 'Unable to access camera. Please try using gallery instead.', ru: 'Не удалось получить доступ к камере. Попробуйте выбрать фото из галереи.', es: 'No se pudo acceder a la cámara. Prueba con la galería.', de: 'Kein Zugriff auf die Kamera. Versuche es mit der Galerie.' },
+  'camera.closeAria': { en: 'Close camera', ru: 'Закрыть камеру', es: 'Cerrar cámara', de: 'Kamera schließen' },
+  'camera.flipAria': { en: 'Flip camera', ru: 'Сменить камеру', es: 'Cambiar cámara', de: 'Kamera wechseln' },
+  'camera.captureAria': { en: 'Capture photo', ru: 'Сделать снимок', es: 'Tomar foto', de: 'Foto aufnehmen' },
+
+  // Aria labels (home / history / result / settings)
+  'aria.openSettings': { en: 'Open settings', ru: 'Открыть настройки', es: 'Abrir ajustes', de: 'Einstellungen öffnen' },
+  'aria.closeSettings': { en: 'Close settings', ru: 'Закрыть настройки', es: 'Cerrar ajustes', de: 'Einstellungen schließen' },
+  'aria.settings': { en: 'Settings', ru: 'Настройки', es: 'Ajustes', de: 'Einstellungen' },
+  'aria.scanPlant': { en: 'Scan plant', ru: 'Сканировать растение', es: 'Escanear planta', de: 'Pflanze scannen' },
+  'aria.searchAnalyses': { en: 'Search analyses', ru: 'Поиск по анализам', es: 'Buscar análisis', de: 'Analysen durchsuchen' },
+  'aria.shareResults': { en: 'Share results', ru: 'Поделиться результатами', es: 'Compartir resultados', de: 'Ergebnisse teilen' },
+  'aria.deleteAnalysis': { en: 'Delete analysis', ru: 'Удалить анализ', es: 'Eliminar análisis', de: 'Analyse löschen' },
+
+  // Image gallery / lightbox
+  'gallery.openImage': { en: 'Open image', ru: 'Открыть изображение', es: 'Abrir imagen', de: 'Bild öffnen' },
+  'gallery.open': { en: 'Open', ru: 'Открыть', es: 'Abrir', de: 'Öffnen' },
+  'gallery.unavailable': { en: 'Unavailable', ru: 'Недоступно', es: 'No disponible', de: 'Nicht verfügbar' },
+  'lightbox.imageUnavailable': { en: 'Image unavailable', ru: 'Изображение недоступно', es: 'Imagen no disponible', de: 'Bild nicht verfügbar' },
+  'lightbox.viewer': { en: 'Image viewer', ru: 'Просмотр изображения', es: 'Visor de imagen', de: 'Bildbetrachter' },
+  'lightbox.close': { en: 'Close image viewer', ru: 'Закрыть просмотр', es: 'Cerrar visor', de: 'Bildbetrachter schließen' },
+  'lightbox.swipeToClose': { en: 'Swipe down to close', ru: 'Смахните вниз, чтобы закрыть', es: 'Desliza hacia abajo para cerrar', de: 'Zum Schließen nach unten wischen' },
+
+  // Troubleshooting
+  'troubleshoot.title': { en: 'Troubleshooting', ru: 'Что попробовать', es: 'Solución de problemas', de: 'Fehlerbehebung' },
+  'troubleshoot.camera.1': { en: "Ensure you're using HTTPS or localhost", ru: 'Убедитесь, что используете HTTPS или localhost', es: 'Asegúrate de usar HTTPS o localhost', de: 'Stelle sicher, dass du HTTPS oder localhost verwendest' },
+  'troubleshoot.camera.2': { en: 'Check if another app is using the camera', ru: 'Проверьте, не использует ли камеру другое приложение', es: 'Comprueba si otra aplicación está usando la cámara', de: 'Prüfe, ob eine andere App die Kamera nutzt' },
+  'troubleshoot.camera.3': { en: 'Try refreshing the page', ru: 'Попробуйте обновить страницу', es: 'Intenta actualizar la página', de: 'Versuche, die Seite neu zu laden' },
+  'troubleshoot.camera.4': { en: 'Clear browser cache and reload', ru: 'Очистите кэш браузера и перезагрузите', es: 'Borra la caché del navegador y recarga', de: 'Browser-Cache leeren und neu laden' },
+  'troubleshoot.camera.5': { en: 'Use the gallery option instead', ru: 'Используйте загрузку из галереи', es: 'Usa la opción de galería', de: 'Verwende stattdessen die Galerie' },
+  'troubleshoot.perm.1': { en: 'Click the lock icon in the address bar', ru: 'Нажмите на значок замка в адресной строке', es: 'Toca el icono del candado en la barra de direcciones', de: 'Klicke auf das Schloss-Symbol in der Adressleiste' },
+  'troubleshoot.perm.2': { en: 'Find "Camera" in site permissions', ru: 'Найдите «Камера» в разрешениях сайта', es: 'Encuentra "Cámara" en los permisos del sitio', de: 'Suche "Kamera" in den Website-Berechtigungen' },
+  'troubleshoot.perm.3': { en: 'Select "Allow" for camera access', ru: 'Выберите «Разрешить» для доступа к камере', es: 'Selecciona "Permitir" para el acceso a la cámara', de: 'Wähle "Erlauben" für den Kamerazugriff' },
+  'troubleshoot.perm.4': { en: 'Refresh the page after granting permission', ru: 'Обновите страницу после предоставления разрешения', es: 'Recarga la página tras conceder el permiso', de: 'Lade die Seite nach Erteilung der Berechtigung neu' },
+  'troubleshoot.perm.5': { en: 'On mobile: Check system settings → Browser → Permissions', ru: 'На мобильном: системные настройки → браузер → разрешения', es: 'En móvil: ajustes del sistema → navegador → permisos', de: 'Auf dem Handy: Systemeinstellungen → Browser → Berechtigungen' },
 } as const;
 
 export type TranslationKey = keyof typeof translations;

@@ -55,7 +55,7 @@ export const ScanOptionsScreen = () => {
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           whileTap={{ scale: 0.95 }}
-          aria-label="Go back"
+          aria-label={t('common.goBack')}
         >
           <ArrowLeft className="w-5 h-5" />
           <span className="font-medium">{t('scan.title')}</span>

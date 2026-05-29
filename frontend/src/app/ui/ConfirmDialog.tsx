@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { SPRING_CONFIG } from '../lib/constants';
+import { useLocale } from '../lib/i18n';
 import { Button } from './Button';
 
 interface ConfirmDialogProps {
@@ -20,13 +21,16 @@ export const ConfirmDialog = ({
   isOpen,
   title,
   description,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
+  confirmLabel,
+  cancelLabel,
   variant = 'danger',
   loading,
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) => {
+  const { t } = useLocale();
+  const confirmText = confirmLabel ?? t('common.confirm');
+  const cancelText = cancelLabel ?? t('common.cancel');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -102,7 +106,7 @@ export const ConfirmDialog = ({
                   disabled={loading}
                   onClick={onCancel}
                 >
-                  {cancelLabel}
+                  {cancelText}
                 </Button>
                 <Button
                   type="button"
@@ -113,7 +117,7 @@ export const ConfirmDialog = ({
                   disabled={loading}
                   onClick={onConfirm}
                 >
-                  {confirmLabel}
+                  {confirmText}
                 </Button>
               </div>
             </div>

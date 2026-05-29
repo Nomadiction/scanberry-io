@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { Button } from '../../ui/Button';
 import { useTelegram } from '../../lib/telegram';
+import { useLocale } from '../../lib/i18n';
 import { useScan } from './ScanContext';
 import { RotateCcw, ArrowRight } from 'lucide-react';
 import { useEffect } from 'react';
@@ -9,6 +10,7 @@ import { useEffect } from 'react';
 export const PhotoPreviewScreen = () => {
   const navigate = useNavigate();
   const { haptic } = useTelegram();
+  const { t } = useLocale();
   const { previewUrl, file } = useScan();
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export const PhotoPreviewScreen = () => {
       >
         <img
           src={previewUrl}
-          alt="Captured plant photo"
+          alt={t('preview.alt')}
           className="block max-w-full max-h-full w-auto h-auto object-contain"
         />
       </motion.div>
@@ -55,7 +57,7 @@ export const PhotoPreviewScreen = () => {
         transition={{ delay: 0.2 }}
       >
         <p className="text-center text-white/60 text-[13px] mb-3">
-          Review your photo before analysis
+          {t('preview.hint')}
         </p>
         <div className="flex gap-3">
           <Button
@@ -63,17 +65,17 @@ export const PhotoPreviewScreen = () => {
             variant="secondary"
             className="flex-1 bg-white/10 text-white hover:bg-white/20 border-0 rounded-xl"
             size="lg"
-            aria-label="Retake photo"
+            aria-label={t('preview.retakeAria')}
           >
             <RotateCcw className="w-4 h-4 mr-2" />
-            Retake
+            {t('preview.retake')}
           </Button>
           <Button
             onClick={handleAnalyze}
             className="flex-1 rounded-xl"
             size="lg"
           >
-            Analyze
+            {t('preview.analyze')}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>

@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react';
 import { Maximize2, ImageOff } from 'lucide-react';
 import { Lightbox, type LightboxImage } from './Lightbox';
 import { useTelegram } from '../lib/telegram';
+import { useLocale } from '../lib/i18n';
 import { cn } from '../lib/utils';
 import { SPRING_CONFIG } from '../lib/constants';
 
@@ -28,6 +29,7 @@ export function ImageGallery({ images, className }: ImageGalleryProps) {
   const [selected, setSelected] = useState<LightboxImage | null>(null);
   const [failedSrcs, setFailedSrcs] = useState<Set<string>>(new Set());
   const { haptic } = useTelegram();
+  const { t } = useLocale();
 
   const handleImgError = useCallback((src: string) => {
     setFailedSrcs((prev) => new Set(prev).add(src));
@@ -71,12 +73,12 @@ export function ImageGallery({ images, className }: ImageGalleryProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...SPRING_CONFIG, delay: index * 0.05 }}
               whileTap={isFailed ? undefined : { scale: 0.97 }}
-              aria-label={image.label ? `Open ${image.label}` : 'Open image'}
+              aria-label={image.label ? `${t('gallery.open')} ${image.label}` : t('gallery.openImage')}
             >
               {isFailed ? (
                 <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-muted-foreground">
                   <ImageOff className="h-8 w-8 opacity-40" />
-                  <span className="text-[10px] opacity-60">Unavailable</span>
+                  <span className="text-[10px] opacity-60">{t('gallery.unavailable')}</span>
                 </div>
               ) : (
                 <img

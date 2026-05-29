@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { Button } from '../../ui/Button';
 import { useTelegram } from '../../lib/telegram';
+import { useLocale } from '../../lib/i18n';
 import { useScan } from './ScanContext';
 import { Camera, X, RotateCw, ImagePlus, ArrowLeft } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -13,6 +14,7 @@ function stopStream(stream: MediaStream | null) {
 export const CameraCaptureScreen = () => {
   const navigate = useNavigate();
   const { haptic } = useTelegram();
+  const { t } = useLocale();
   const { setImage } = useScan();
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -23,7 +25,7 @@ export const CameraCaptureScreen = () => {
   const startCamera = useCallback(async () => {
     try {
       if (!navigator.mediaDevices?.getUserMedia) {
-        setError('Camera not supported on this device or browser.');
+        setError(t('camera.errNotSupported'));
         setPermissionDenied(true);
         return;
       }
@@ -44,23 +46,23 @@ export const CameraCaptureScreen = () => {
       const name = err instanceof DOMException ? err.name : '';
 
       if (name === 'NotAllowedError' || name === 'PermissionDeniedError') {
-        setError('Camera access denied. Please allow camera permissions in your browser settings.');
+        setError(t('camera.errDenied'));
         setPermissionDenied(true);
       } else if (name === 'NotFoundError' || name === 'DevicesNotFoundError') {
-        setError('No camera found on this device.');
+        setError(t('camera.errNotFound'));
         setPermissionDenied(true);
       } else if (name === 'NotReadableError' || name === 'TrackStartError') {
-        setError('Camera is already in use by another application.');
+        setError(t('camera.errInUse'));
         setPermissionDenied(true);
       } else if (name === 'OverconstrainedError') {
-        setError('Camera constraints not supported. Try using gallery instead.');
+        setError(t('camera.errConstraints'));
         setPermissionDenied(true);
       } else {
-        setError('Unable to access camera. Please try using gallery instead.');
+        setError(t('camera.errGeneric'));
         setPermissionDenied(true);
       }
     }
-  }, [facingMode]);
+  }, [facingMode, t]);
 
   useEffect(() => {
     startCamera();
@@ -128,10 +130,10 @@ export const CameraCaptureScreen = () => {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             whileTap={{ scale: 0.95 }}
-            aria-label="Go back"
+            aria-label={t('common.goBack')}
           >
             <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Camera</span>
+            <span className="font-medium">{t('camera.title')}</span>
           </motion.button>
         </div>
 
@@ -146,7 +148,7 @@ export const CameraCaptureScreen = () => {
             <Camera className="w-10 h-10 text-muted-foreground" />
           </div>
 
-          <h2 className="text-lg font-semibold text-foreground mb-2">Camera Unavailable</h2>
+          <h2 className="text-lg font-semibold text-foreground mb-2">{t('camera.unavailableTitle')}</h2>
           <p className="text-sm text-muted-foreground text-center leading-relaxed mb-8 max-w-xs">
             {error}
           </p>
@@ -154,12 +156,12 @@ export const CameraCaptureScreen = () => {
           <div className="w-full max-w-xs space-y-3">
             {!permissionDenied && (
               <Button onClick={startCamera} className="w-full" size="lg">
-                Try Again
+                {t('common.tryAgain')}
               </Button>
             )}
             <Button onClick={handleUseGallery} variant="secondary" className="w-full" size="lg">
               <ImagePlus className="w-4 h-4 mr-2" />
-              Use Gallery Instead
+              {t('camera.useGallery')}
             </Button>
           </div>
 
@@ -170,7 +172,7 @@ export const CameraCaptureScreen = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              To enable camera: Open browser settings &rarr; Site permissions &rarr; Camera &rarr; Allow
+              {t('camera.permissionHint')}
             </motion.p>
           )}
         </motion.div>
@@ -200,7 +202,7 @@ export const CameraCaptureScreen = () => {
             onClick={handleBack}
             className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center"
             whileTap={{ scale: 0.95 }}
-            aria-label="Close camera"
+            aria-label={t('camera.closeAria')}
           >
             <X className="w-5 h-5 text-white" />
           </motion.button>
@@ -208,7 +210,7 @@ export const CameraCaptureScreen = () => {
             onClick={handleFlipCamera}
             className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center"
             whileTap={{ scale: 0.95 }}
-            aria-label="Flip camera"
+            aria-label={t('camera.flipAria')}
           >
             <RotateCw className="w-5 h-5 text-white" />
           </motion.button>
@@ -221,13 +223,13 @@ export const CameraCaptureScreen = () => {
               onClick={handleCapture}
               className="w-16 h-16 rounded-full bg-white border-4 border-white/30"
               whileTap={{ scale: 0.95 }}
-              aria-label="Capture photo"
+              aria-label={t('camera.captureAria')}
             >
               <div className="w-full h-full rounded-full bg-white" />
             </motion.button>
           </div>
           <p className="text-center text-white/70 text-xs mt-4">
-            Position plant within frame
+            {t('camera.framingHint')}
           </p>
         </div>
       </div>

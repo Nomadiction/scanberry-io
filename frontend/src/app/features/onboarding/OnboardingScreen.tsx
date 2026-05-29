@@ -2,35 +2,22 @@ import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { Button } from '../../ui/Button';
 import { useTelegram } from '../../lib/telegram';
+import { useLocale } from '../../lib/i18n';
 import { SPRING_CONFIG, STAGGER_DELAY } from '../../lib/constants';
 import { Leaf, Scan, History, Zap } from 'lucide-react';
+import type { TranslationKey } from '../../lib/i18n';
 
-const features = [
-  {
-    icon: Scan,
-    title: 'AI-Powered Analysis',
-    description: 'Advanced ML pipeline detects plant health in seconds',
-  },
-  {
-    icon: Leaf,
-    title: 'Precise Diagnostics',
-    description: 'Pixel-level damage segmentation and classification',
-  },
-  {
-    icon: History,
-    title: 'Track History',
-    description: 'Monitor plant health over time with full analysis history',
-  },
-  {
-    icon: Zap,
-    title: 'Instant Results',
-    description: 'Get detailed health reports in under 2 seconds',
-  },
+const features: Array<{ icon: typeof Scan; titleKey: TranslationKey; descKey: TranslationKey }> = [
+  { icon: Scan, titleKey: 'onboarding.feature1.title', descKey: 'onboarding.feature1.desc' },
+  { icon: Leaf, titleKey: 'onboarding.feature2.title', descKey: 'onboarding.feature2.desc' },
+  { icon: History, titleKey: 'onboarding.feature3.title', descKey: 'onboarding.feature3.desc' },
+  { icon: Zap, titleKey: 'onboarding.feature4.title', descKey: 'onboarding.feature4.desc' },
 ];
 
 export const OnboardingScreen = () => {
   const navigate = useNavigate();
   const { haptic } = useTelegram();
+  const { t } = useLocale();
 
   const handleGetStarted = () => {
     haptic.light();
@@ -55,9 +42,9 @@ export const OnboardingScreen = () => {
         >
           <Leaf className="w-8 h-8 text-primary" />
         </motion.div>
-        <h1 className="text-2xl mb-2">Blueberry Health</h1>
+        <h1 className="text-2xl mb-2">{t('onboarding.title')}</h1>
         <p className="text-muted-foreground">
-          AI-powered plant diagnostics for <em>Vaccinium corymbosum</em> L.
+          {t('onboarding.tagline')} <em>Vaccinium corymbosum</em> L.
         </p>
       </motion.div>
 
@@ -82,9 +69,9 @@ export const OnboardingScreen = () => {
                   <feature.icon className="w-[18px] h-[18px] text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-[15px] font-medium">{feature.title}</h3>
+                  <h3 className="text-[15px] font-medium">{t(feature.titleKey)}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    {feature.description}
+                    {t(feature.descKey)}
                   </p>
                 </div>
               </div>
@@ -105,10 +92,10 @@ export const OnboardingScreen = () => {
           className="w-full"
           size="lg"
         >
-          Get Started
+          {t('onboarding.getStarted')}
         </Button>
         <p className="text-xs text-center text-muted-foreground mt-3">
-          Take a photo or upload an image to analyze plant health
+          {t('onboarding.footer')}
         </p>
       </motion.div>
     </div>

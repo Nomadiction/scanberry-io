@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Button } from './Button';
 import { AlertCircle } from 'lucide-react';
+import { useLocale } from '../lib/i18n';
 
 interface ErrorStateProps {
   title?: string;
@@ -10,11 +11,15 @@ interface ErrorStateProps {
 }
 
 export const ErrorState = ({
-  title = 'Something went wrong',
-  message = 'An unexpected error occurred. Please try again.',
+  title,
+  message,
   onRetry,
-  retryLabel = 'Try Again',
+  retryLabel,
 }: ErrorStateProps) => {
+  const { t } = useLocale();
+  const titleText = title ?? t('common.somethingWentWrong');
+  const messageText = message ?? t('common.unexpectedError');
+  const retryText = retryLabel ?? t('common.tryAgain');
   return (
     <motion.div
       className="flex flex-col items-center justify-center p-6 text-center"
@@ -24,11 +29,11 @@ export const ErrorState = ({
       <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center mb-4">
         <AlertCircle className="w-8 h-8 text-destructive" />
       </div>
-      <h2 className="text-lg font-semibold mb-2">{title}</h2>
-      <p className="text-sm text-muted-foreground mb-6 max-w-sm">{message}</p>
+      <h2 className="text-lg font-semibold mb-2">{titleText}</h2>
+      <p className="text-sm text-muted-foreground mb-6 max-w-sm">{messageText}</p>
       {onRetry && (
         <Button onClick={onRetry} variant="primary">
-          {retryLabel}
+          {retryText}
         </Button>
       )}
     </motion.div>

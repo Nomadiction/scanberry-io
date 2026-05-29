@@ -60,7 +60,7 @@ export const SettingsSheet = ({ isOpen, onClose }: SettingsSheetProps) => {
             exit={{ y: '100%' }}
             transition={SPRING_CONFIG}
             role="dialog"
-            aria-label="Settings"
+            aria-label={t('aria.settings')}
           >
             {/* Header */}
             <div className="px-6 pt-6 pb-4 border-b border-border flex items-center justify-between sticky top-0 bg-card z-10">
@@ -68,7 +68,7 @@ export const SettingsSheet = ({ isOpen, onClose }: SettingsSheetProps) => {
               <button
                 onClick={handleClose}
                 className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
-                aria-label="Close settings"
+                aria-label={t('aria.closeSettings')}
               >
                 <X className="w-4 h-4" />
               </button>

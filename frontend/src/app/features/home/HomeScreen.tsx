@@ -98,7 +98,7 @@ export const HomeScreen = () => {
             onClick={handleOpenSettings}
             className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
             whileTap={{ scale: 0.95 }}
-            aria-label="Open settings"
+            aria-label={t('aria.openSettings')}
           >
             <Settings className="w-4 h-4" />
           </motion.button>
@@ -168,7 +168,7 @@ export const HomeScreen = () => {
             className="relative w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
             whileTap={{ scale: 0.93 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            aria-label="Scan plant"
+            aria-label={t('aria.scanPlant')}
           >
             <Camera className="w-5 h-5" />
           </motion.button>

@@ -165,7 +165,7 @@ export const ResultScreen = () => {
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           whileTap={{ scale: 0.95 }}
-          aria-label="Go back"
+          aria-label={t('common.goBack')}
         >
           <ArrowLeft className="w-5 h-5" />
           <span className="font-medium">{t('result.title')}</span>
@@ -178,7 +178,7 @@ export const ResultScreen = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             whileTap={{ scale: 0.95 }}
-            aria-label="Share results"
+            aria-label={t('aria.shareResults')}
           >
             <Share2 className="w-4 h-4" />
           </motion.button>
@@ -190,7 +190,7 @@ export const ResultScreen = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.05 }}
             whileTap={{ scale: 0.95 }}
-            aria-label="Delete analysis"
+            aria-label={t('aria.deleteAnalysis')}
           >
             <Trash2 className="w-4 h-4" />
           </motion.button>

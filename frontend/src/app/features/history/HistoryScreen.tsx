@@ -121,7 +121,7 @@ export const HistoryScreen = () => {
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           whileTap={{ scale: 0.95 }}
-          aria-label="Go back"
+          aria-label={t('common.goBack')}
         >
           <ArrowLeft className="w-5 h-5" />
           <span className="font-medium">{t('history.title')}</span>
@@ -142,7 +142,7 @@ export const HistoryScreen = () => {
                 placeholder={t('history.search')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                aria-label="Search analyses"
+                aria-label={t('aria.searchAnalyses')}
                 className="w-full h-10 pl-10 pr-4 rounded-xl bg-muted/50 border border-border/60 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-ring/30 focus:border-ring/50 transition-all select-text"
               />
             </motion.div>

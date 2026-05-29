@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useEffect, useState } from 'react';
 import { X, ImageOff } from 'lucide-react';
 import { useTelegram } from '../lib/telegram';
+import { useLocale } from '../lib/i18n';
 import { SPRING_CONFIG } from '../lib/constants';
 
 /**
@@ -39,6 +40,7 @@ interface LightboxProps {
  */
 export function Lightbox({ image, onClose }: LightboxProps) {
   const { haptic } = useTelegram();
+  const { t } = useLocale();
   const [imgError, setImgError] = useState(false);
 
   // Reset error state when switching images
@@ -88,7 +90,7 @@ export function Lightbox({ image, onClose }: LightboxProps) {
           onClick={handleClose}
           role="dialog"
           aria-modal="true"
-          aria-label={image.label ?? 'Image viewer'}
+          aria-label={image.label ?? t('lightbox.viewer')}
         >
           {/* Dimmed backdrop (no blur — blur during opacity transition causes jank) */}
           <div className="absolute inset-0 bg-black/95" />
@@ -107,7 +109,7 @@ export function Lightbox({ image, onClose }: LightboxProps) {
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ delay: 0.08, duration: 0.2 }}
             whileTap={{ scale: 0.92 }}
-            aria-label="Close image viewer"
+            aria-label={t('lightbox.close')}
           >
             <X className="h-5 w-5" />
           </motion.button>
@@ -126,7 +128,7 @@ export function Lightbox({ image, onClose }: LightboxProps) {
             {imgError ? (
               <div className="flex flex-col items-center justify-center gap-3 text-white/60">
                 <ImageOff className="h-16 w-16 opacity-40" />
-                <span className="text-sm">Image unavailable</span>
+                <span className="text-sm">{t('lightbox.imageUnavailable')}</span>
               </div>
             ) : (
               <motion.img
@@ -161,7 +163,7 @@ export function Lightbox({ image, onClose }: LightboxProps) {
                   <div className="mt-0.5 text-[11px] text-white/60">{image.caption}</div>
                 )}
                 <div className="mt-1.5 text-[9px] uppercase tracking-wider text-white/35">
-                  Swipe down to close
+                  {t('lightbox.swipeToClose')}
                 </div>
               </div>
             </motion.div>
